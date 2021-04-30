@@ -1,0 +1,276 @@
+* {
+    -webkit-user-select: none;
+    margin: 0px;
+}
+
+@media screen and (min-width: 1600px) {
+    .wgt-cont {
+        height: 100%;
+    }
+
+    .form-container {
+        height: 80vh;
+    }
+}
+
+#backgroundlayer {
+    position: absolute;
+    z-index: 15;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+}
+
+body {
+    font-family: Tahoma;
+    font-size: 14px;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.grid-container {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 40px 25px 40px 40px auto;
+    grid-template-areas:
+    "login"
+    "header"  
+    "buttons" 
+    "list"
+    "content";
+    grid-gap: 10px;
+}
+
+#addUser {
+    grid-area: login;
+    justify-self: start;
+    align-self: center;
+    width: 220px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.login {
+    grid-area: login;
+    justify-self: end;
+    align-self: center;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+}
+
+.user-text {
+    margin-left: 15px;
+    margin-right: 15px;
+    vertical-align: middle;
+    display: none;
+}
+
+.logout {
+    width: 170px;
+    height: 34px;
+    text-align: center;
+}
+
+.header {
+    grid-area: header;
+    justify-self: center;
+    align-self: end;
+}
+
+header > h3 {
+    text-align: center;
+}
+
+#path {
+    text-align: left;
+    user-select: none;
+}
+
+.buttons-cont {
+    grid-area: buttons;
+    align-self: start;
+    display: inline-block;
+    margin-left: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+#treeList {
+    margin-bottom: 20px;
+    user-select: none;
+}
+
+#wgt5Div {
+    text-align: center;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+#saveButton, #showButton, #tableButton, #printTableButton, #printButton {
+    margin: 0;
+    width: 137px;
+    height: 34px;
+    display: inline-block;
+}
+
+.dx-button {
+    border: 1px;
+    vertical-align: top;
+}
+
+#tableButton {
+    border: solid #ddd 1px;
+}
+
+.list-cont {
+    grid-area: list;
+    align-self: start;
+    margin-left: 10px;
+    margin-right: 10px;
+    user-select: none;
+    background: linear-gradient(#fffcfd, #e6e6e6);
+    border: 1px solid #9e9b9b;
+    border-radius: 3px;
+}
+
+#menu .dx-menu-item-selected {
+    color: #000;
+}
+
+#menu .dx-menu-item {
+    background: linear-gradient(#fffcfd, #e6e6e6);
+    color: #0088cc;
+}
+
+#menu .dx-menu-item.dx-state-hover {
+    color: #000;
+}
+
+#tableCont {
+    grid-area: content;
+    margin: 2px;
+    user-select: none;
+    overflow-y: auto;
+}
+
+.form-container {
+    grid-area: content;
+    padding: 1px;
+    margin-right: 10px;
+    margin-left: 10px;
+    overflow-y: auto;
+    box-shadow: 0px 0px 1px darkgrey;
+}
+
+.wgt-cont {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    page-break-before: always;
+}
+
+.couple {
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+.label {
+    padding-bottom: 3px;
+    padding-left: 8px;
+}
+
+.dx-texteditor {
+    margin: 5px;
+}
+
+.dx-popup-content {
+    text-align: center;
+    padding: 0;
+}
+
+#disks {
+    text-align: left;
+    padding: 5px;
+}
+
+#addressbar {
+    text-align: left;
+    padding: 5px;
+    border: 1px solid #9e9b9b;
+    border-radius: 3px;
+    background: linear-gradient(#fffcfd, #e6e6e6);
+}
+
+#addressbar li, #disks li {
+    margin-right: 5px;
+    display: inline-block;
+}
+
+#addressbar li.active a {
+    color: #000000;
+}
+
+#addressbar li a, #disks li a {
+    text-decoration: none;
+    color: #0088cc;
+}
+
+#addressbar ul, #disks ul {
+    padding: 0;
+}
+
+#scrollview {
+    height: 520px;
+}
+
+#files {
+    padding: 5px;
+    margin: 0;
+    height: 100%;
+    /*overflow-y: auto;*/
+}
+
+.file {
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: center;
+    padding: 0;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.file.focus {
+    background-color: #08C;
+    -webkit-border-radius: 4px;
+}
+
+.file .name {
+    word-wrap: break-word;
+    height: 20px;
+}
+
+.file.focus .name {
+    color: white;
+}
+
+.file .icon {
+    width: 20px;
+    margin-right: 5px;
+}
+
+.file .icon img {
+    width: 100%;
+}
+
+.file.focus .icon {
+    -webkit-filter: invert(20%);
+}

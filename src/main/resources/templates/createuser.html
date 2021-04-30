@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление пользователя</title>
+    <link rel='stylesheet' href='webjars/bootstrap/css/bootstrap.min.css'/>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: -webkit-box;
+            display: flex;
+            -ms-flex-align: center;
+            -ms-flex-pack: center;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
+
+        .form-adduser {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        .form-adduser .form-control {
+            position: relative;
+            box-sizing: border-box;
+            height: auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .form-adduser .form-control:focus {
+            z-index: 2;
+        }
+
+        .form-adduser #inputName {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-adduser #inputEmail, .form-adduser #inputLogin {
+            margin-bottom: -1px;
+            border-radius: 0;
+        }
+
+        .form-adduser input[type="password"] {
+            margin-bottom: -1px;
+            border-radius: 0;
+        }
+
+        .form-adduser select {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+    </style>
+</head>
+
+<body class="text-center">
+<form th:action="@{/adduser}" method="post" class="form-adduser">
+    <p th:if="${param.error}" class="error"></p>
+    <label for="inputName" class="sr-only">Имя пользователя</label>
+    <input name="name" type="text" id="inputName" class="form-control" placeholder="ФИО пользователя *" required
+           autofocus>
+    <label for="inputEmail" class="sr-only">Почта</label>
+    <input name="email" type="text" id="inputEmail" class="form-control" placeholder="Email">
+    <label for="inputLogin" class="sr-only">Login</label>
+    <input name="login" type="text" id="inputLogin" class="form-control" placeholder="Имя *" required>
+    <label for="inputPassword" class="sr-only">Пароль</label>
+    <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Пароль *" required>
+    <select class="form-control" name="role" placeholder="Role">
+        <option value="ROLE_READWRITE">Чтение и запись</option>
+        <option value="ROLE_READONLY">Только чтение</option>
+    </select>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" id="submitButton">Сохранить</button>
+</form>
+</body>
+</html>

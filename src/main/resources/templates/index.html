@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>"Паспорт обработанного изображения"</title>
+    <link rel="stylesheet" href="/dx.common.css"/>
+    <link rel="stylesheet" href="/dx.light.css"/>
+    <link rel="stylesheet" type="text/css" href="/style.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="/print.css" media="print"/>
+    <link rel="stylesheet" type="text/css" href="/printtable.css" media="print"/>
+    <script src="/widgets.js"></script>
+    <script src="/index.js"></script>
+    <script type="text/javascript" src="/jszip.min.js"></script>
+    <script type="text/javascript" src="/dx.all.js"></script>
+    <script type="text/javascript" src="/devextreme-intl.min.js"></script>
+    <script type="text/javascript" src="/dx.messages.ru.js"></script>
+</head>
+<body>
+<div id="backgroundlayer" style="display: none"></div>
+<div class="grid-container">
+    <div id="addUser" style="display: none"></div>
+    <div class="login">
+        <div class="user-text">
+            <span id="user" th:text="${#httpServletRequest.remoteUser}"></span>
+            <span id="role" th:text="${#httpServletRequest.isUserInRole('READWRITE')}"></span>
+            <span id="superrole" th:text="${#httpServletRequest.isUserInRole('SUPERMEN')}"></span>
+        </div>
+        <form th:action="@{/logout}" method="POST">
+            <div id="logout"></div>
+        </form>
+    </div>
+    <div class="header">
+        <h3 id="title">"Паспорт обработанного изображения"</h3>
+        <h3 id="title2" style="display: none">"Данные паспорта"</h3>
+        <h3 id="title3" style="display: none">"Отчет о сертифицированных продуктах"</h3>
+        <div id="path"></div>
+    </div>
+    <div id="popup" style="display: none">
+        <ul id="disks"></ul>
+        <ul id="addressbar"></ul>
+        <div id="scrollview">
+            <ul id="files"></ul>
+        </div>
+        <div id="applyButton"></div>
+    </div>
+    <div id="getFile" class="buttons-cont">
+        <div id="chooseDir"></div>
+        <div id="saveButton"></div>
+        <div id="showButton"></div>
+        <div id="tableButton" style="display: none"></div>
+        <div id="printTableButton" style="display: none"></div>
+        <div id="printButton"></div>
+    </div>
+    <div class="list-cont" style="display: none">
+        <div id="menu"></div>
+    </div>
+    <div id="tableCont" style="display: none">
+        <div id="table"></div>
+    </div>
+    <div id="wgtHidden" class="form-container" style="display: none">
+        <div id="wgt1Div" class="wgt-cont"></div>
+        <div id="wgt2Div" class="wgt-cont"></div>
+        <div id="wgt3Div" class="wgt-cont"></div>
+        <div id="wgt4Div" class="wgt-cont"></div>
+        <div id="wgt5Div">
+            <div id="titleData"></div>
+        </div>
+    </div>
+    <div id="aclick" style="display: none"></div>
+</div>
+</body>
+</html>

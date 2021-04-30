@@ -1,0 +1,62 @@
+* {
+    margin: 0px;
+}
+
+body {
+    font-family: Times, 'Times New Roman', serif;
+    font-size: 14px;
+    height: 100vh;
+}
+
+h1, h2, p {
+    color: #000;
+}
+
+#backgroundlayer, #addUser, #path, #title, #treeList, #disks, #addressbar, #files, #wgt5Div {
+    display: none;
+}
+
+.login, .list-cont, .user-text, .logout, .buttons-cont, .dx-popup-content {
+    display: none;
+}
+
+.header {
+    grid-area: header;
+    justify-self: center;
+    align-self: end;
+}
+
+.grid-container {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 25px auto;
+    grid-template-areas: "header" "content";
+    grid-gap: 10px;
+}
+
+.form-container {
+    grid-area: content;
+    padding: 1px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.couple {
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    page-break-inside: avoid;
+}
+
+.label {
+    padding-bottom: 3px;
+    padding-left: 8px;
+}
+
+.dx-texteditor {
+    margin: 5px;
+}
+
+

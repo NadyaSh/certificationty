@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <title>Паспорт обработанного изображения</title>
+    <style>
+        * {
+            margin: 0px;
+        }
+
+        body {
+            font-family: "Times New Roman";
+            font-size: 14px;
+            height: 100%;
+            width: 21cm;
+            /*padding-left: 2.5cm;*/
+            padding-right: 2.5cm;
+        }
+
+        .const, .variable, .set {
+            margin-bottom: 1cm;
+        }
+
+        .const > h2, .variable > h2, .set > h2 {
+            text-align: center;
+            margin-bottom: 1cm;
+            page-break-after: avoid;
+        }
+
+        .data1 > p, .data2 > p, .data > p,
+        .const > p, .const > span > p,
+        .variable > p, .variable > span > p, .variable > span > span > p, .variable > span > span > span > p,
+        .set > p, .set > span > p, .set > span > span > p {
+            margin-bottom: 0.5cm;
+            padding-left: 2cm;
+        }
+
+        .title > h3 {
+            text-align: center;
+            margin-bottom: 0.5cm;
+            page-break-after: avoid;
+        }
+
+        .header {
+            margin-top: 0;
+            margin-bottom: 1cm;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .title {
+            font-size: 14px;
+            margin-top: 2cm;
+            margin-bottom: 3cm;
+            text-align: center;
+        }
+
+        .data1 {
+            margin-top: 1cm;
+            margin-bottom: 3cm;
+            margin-left: 0;
+            text-align: left;
+        }
+
+        .data2 {
+            margin-top: 1cm;
+            margin-bottom: 2cm;
+            margin-left: 1cm;
+            text-align: left;
+        }
+
+        .titleimg {
+            margin-top: 2cm;
+            text-align: center;
+        }
+
+        .titleimg > img {
+            width: 2cm;
+            height: 2cm;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h2>АКЦИОНЕРНОЕ ОБЩЕСТВО</h2>
+    <h2>«РОССИЙСКИЕ КОСМИЧЕСКИЕ СИСТЕМЫ»</h2>
+    <h2>(АО «РОССИЙСКИЕ КОСМИЧЕСКИЕ СИСТЕМЫ»)</h2>
+</div>
+<div class="header">
+    <h2>НАУЧНЫЙ ЦЕНТР</h2>
+    <h2>ОПЕРАТИВНОГО МОНИТОРИНГА ЗЕМЛИ</h2>
+    <h2>(НЦ ОМЗ)</h2>
+</div>
+<div class="header">
+    <p>111250, Москва, Авиамоторная ул., д. 53,</p>
+    <p>Тел.: (495) 673-95-19, факс: (495) 509-12-00, e-mail: contact@spacecorp.ru</p>
+</div>
+<div class="titleimg">
+    <img src="./static/icons/logo.png"></img>
+</div>
+<div class="title">
+    <h3>Паспорт на стандартный продукт ДЗЗ, полученный в результате</h3>
+    <h3>обработки информации аппаратуры "<span th:text="${equipment}"></span>"
+        КА "<span th:text="${typeV}"></span>",</h3>
+    <h3><span th:if="${#strings.equals(range, 'мультиспектральный')}">многоспектральная</span><span
+            th:if="${#strings.equals(range, 'панхроматический')}">панхроматическая</span> съемка.
+        Уровень обработки <span th:text="${level}"></span></h3>
+</div>
+<div class="data1">
+    <p>Заказчик: <span th:text="${customer}"></span></p>
+    <p>Район: <span th:text="${region}"></span></p>
+    <p>Заявка: № <span th:text="${applicationNumber}"></span></p>
+</div>
+<div class="data2">
+    <p>Начальник отдела <span th:text="${boss}"></span></p>
+    <p>Контролер <span th:text="${controller}"></span></p>
+</div>
+<div class="set">
+    <h2>Комплектность продукта</h2>
+    <p>1. Изображения (имена файлов), размеры:</p>
+    <span th:each="str : ${fileName}">
+            <span th:if="${#arrays.length(fileName) <= 4}">
+                <p>
+                    <span th:unless="${#strings.isEmpty(#strings.replace(str.label, '&quot;', ''))}">
+                        - <span th:text="${#strings.replace(str.label, '&quot;', '')}"></span>,
+                    </span>
+                    <span th:text="${#strings.replace(str.data, '&quot;', '')}"></span>, <span
+                        th:text="${#strings.replace(str.size, '&quot;', '')}"></span> байт
+                </p>
+            </span>
+            <span th:if="${#arrays.length(fileName) > 4}">
+                <p>
+                <span th:unless="${#strings.isEmpty(#strings.replace(str.label, '&quot;', ''))}">
+                    <span class="nextAbz">
+                        - <span th:text="${#strings.replace(str.label, '&quot;', '')}"></span>,
+                    </span>
+                </span>
+                </p>
+                <p>
+                <span th:text="${#strings.replace(str.data, '&quot;', '')}"></span>, <span
+                        th:text="${#strings.replace(str.size, '&quot;', '')}"></span> байт
+                </p>
+            </span>
+        </span>
+    <p>2. Метаданные, размер:</p>
+    <p th:each="str : ${metaData}">
+        <span th:text="${#strings.replace(str.data, '&quot;', '')}"></span>, <span
+            th:text="${#strings.replace(str.size, '&quot;', '')}"></span> байт
+    </p>
+    <p>3. Квиклук, размер:</p>
+    <p th:each="str : ${quickLook}">
+        <span th:text="${#strings.replace(str.data, '&quot;', '')}"></span>, <span
+            th:text="${#strings.replace(str.size, '&quot;', '')}"></span> байт
+    </p>
+    <p>4. Шейп-файлы, размеры:</p>
+    <p th:each="str : ${shapeFiles}">
+        <span th:text="${#strings.replace(str.data, '&quot;', '')}"></span>, <span
+            th:text="${#strings.replace(str.size, '&quot;', '')}"></span> байт
+    </p>
+    <span th:if="${#strings.equals(typeV, 'Канопус-В')}">
+            <p th:unless="${#strings.isEmpty(#strings.replace(geo[0].data, '&quot;', ''))}">5.	Данные геопривязки, размеры:</p>
+            <p th:each="str : ${geo}">
+                <span th:unless="${#strings.isEmpty(#strings.replace(str.data, '&quot;', ''))}">
+                    <span th:text="${#strings.replace(str.data, '&quot;', '')}"></span>, <span
+                        th:text="${#strings.replace(str.size, '&quot;', '')}"></span> байт
+                </span>
+            </p>
+        </span>
+</div>
+<div class="const">
+    <h2>Параметры стандартного продукта</h2>
+    <h2>Постоянные параметры</h2>
+    <p>1. Тип КА – "<span th:text="${typeV}"></span>"</p>
+    <p>2. Тип целевой аппаратуры – "<span th:text="${equipment}"></span>"</p>
+    <p>3. Размер пиксела приемника изображения – <span th:text="${pixelSize}"></span></p>
+    <p>4. Спектральный диапазон – <span th:text="${range}"></span></p>
+    <span th:if="${#strings.equals(typeV, 'Ресурс-П')}">
+            <p>5.	Высота Солнца над плоскостью местного горизонта – <span th:text="${sunHeight}"></span> град</p>
+            <p>6.	Максимальное значение угла отклонения оси визирования по крену – <span
+                    th:text="${maxAngle}"></span> град</p>
+            <p>7.	Вид сжатия – <span th:text="${compressionType}"></span></p>
+            <p>8.	Степень сжатия – <span th:text="${compressionRate}"></span></p>
+            <p th:unless="${#strings.contains(level, '1A')}">9.	Точность геодезической привязки изображения (СКО) - <span
+                    th:text="${alignAccuracy}"></span> м (для равнинных районов)</p>
+        </span>
+    <span th:if="${#strings.equals(typeV, 'Канопус-В')}">
+            <p>5.	Радиометрическое разрешение – <span th:text="${resolution}"></span> бит</p>
+            <p>6.	Высота Солнца над плоскостью местного горизонта – <span th:text="${sunHeight}"></span> град</p>
+            <p>7.	Максимальное значение угла отклонения оси визирования по крену – <span
+                    th:text="${maxAngle}"></span> град</p>
+            <p>8.	СКО геодезической привязки изображения <span th:text="${alignAccuracy}"></span> м (для равнинных районов)</p>
+        </span>
+</div>
+<div class="variable">
+    <h2>Переменные параметры</h2>
+    <p>1. Номер КА – <span th:text="${numberV}"></span></p>
+    <p>2. Номер витка – <span th:text="${numberCoil}"></span></p>
+    <p>3. Номер включения на витке – <span th:text="${numberTurnOn}"></span></p>
+    <p>4. Дата съемки, день.месяц.год – <span th:text="${sceneDate}"></span></p>
+    <p>5. Московское время начала съемки – <span th:text="${sceneTime}"></span></p>
+    <span th:if="${#strings.equals(typeV, 'Ресурс-П')}">
+            <p>6.	Продолжительность съемки – <span th:text="${deltaTime}"></span> с</p>
+            <span th:if="${#arrays.length(channelRange) == 1}">
+                <p>7.   Границы длин волн спектральных диапазонов
+                <span th:each="str : ${channelRange}">
+                     – <span th:text="${#strings.replace(str.data, '&quot;', '')}"></span>, нм
+                </span></p>
+            </span>
+            <span th:unless="${#arrays.length(channelRange) == 1}">
+                <p>7.   Границы длин волн спектральных диапазонов:</p>
+                <span th:each="str : ${channelRange}">
+                    <p><span th:unless="${#strings.isEmpty(#strings.replace(str.label, '&quot;', ''))}">
+                        – <span th:text="${#strings.replace(str.label, '&quot;', '')}"></span>
+                    </span>
+                     – <span th:text="${#strings.replace(str.data, '&quot;', '')}"></span>, нм</p>
+                </span>
+            </span>
+            <p>8.	Радиометрическое разрешение (разрядность градаций яркости) – <span th:text="${resolution}"></span> бит</p>
+            <span th:if="${#arrays.length(fileName) > 1}">
+            <p>9.	Формат файлов изображений – <span th:text="${format}"></span></p>
+            </span>
+            <span th:if="${#arrays.length(fileName) == 1}">
+            <p>9.	Формат файла изображения – <span th:text="${format}"></span></p>
+            </span>
+            <p>10.	Фокусное расстояние  – <span th:text="${focalLength}"></span>, мм</p>
+            <span th:if="${#arrays.length(accumulationLines) == 1}">
+                <p>11.   Количество строк накопления сигнала
+                <span th:each="str : ${accumulationLines}">
+                     – <span th:text="${#strings.replace(str.data, '&quot;', '')}"></span>
+                </span></p>
+            </span>
+            <span th:unless="${#arrays.length(accumulationLines) == 1}">
+                <p>11.   Количество строк накопления сигнала:</p>
+                <span th:each="str : ${accumulationLines}">
+                    <p><span th:unless="${#strings.isEmpty(#strings.replace(str.label, '&quot;', ''))}">
+                        – <span th:text="${#strings.replace(str.label, '&quot;', '')}"></span>
+                    </span>
+                     – <span th:text="${#strings.replace(str.data, '&quot;', '')}"></span></p>
+                </span>
+            </span>
+            <p>12.	Размер стороны проекции пиксела на земной поверхности с точностью
+            не хуже 0,1 м  – <span th:text="${sideSize}"></span>, м</p>
+            <p>13.	Угол между местной вертикалью и осью визирования оптической системы  – <span
+                    th:text="${angleOptSys}"></span>, град</p>
+            <p>14.	Отклонение КА по углам:</p>
+            <p> – крен –  <span th:text="${alpha}"></span>,  град</p>
+            <p> – тангаж –  <span th:text="${omega}"></span>,  град</p>
+            <p> – рыскание –  <span th:text="${kappa}"></span>, град</p>
+            <p>15.	Высота Солнца в ходе съемки – <span th:text="${sunHeightDuring}"></span>, град</p>
+            <p>16.	Высота орбиты КА – <span th:text="${orbitAltitude}"></span>, км</p>
+            <p>17.	Наклонная дальность до центральной точки съемки – <span th:text="${slantRange}"></span>, км</p>
+            <p th:unless="${#strings.isEmpty(#strings.replace(coordinateSystem, '&quot;', ''))}">18.	Система координат: <span
+                    th:text="${coordinateSystem}"></span></p>
+            <p th:unless="${#strings.isEmpty(#strings.replace(coordinateSystem, '&quot;', ''))}">19.	Координаты углов снимка в системе координат WGS - 84:</p>
+            <p th:if="${#strings.isEmpty(#strings.replace(coordinateSystem, '&quot;', ''))}">18.	Координаты углов снимка в системе координат WGS - 84:</p>
+            <span th:each="str : ${channelAngle}">
+                <span th:unless="${#strings.isEmpty(#strings.replace(str.name, '&quot;', ''))}">
+                    <p>- <span th:text="${#strings.replace(str.name, '&quot;', '')}"></span>:</p>
+                </span>
+                <p>а.	Геодезическая широта северо-западного угла <span
+                        th:text="${#strings.replace(str.aNWLat, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>б.	Геодезическая долгота северо-западного угла <span
+                        th:text="${#strings.replace(str.aNWLong, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>в.	Геодезическая широта северо-восточного угла <span
+                        th:text="${#strings.replace(str.aNELat, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>г.	Геодезическая долгота северо-восточного угла <span
+                        th:text="${#strings.replace(str.aNELong, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>д.	Геодезическая широта юго-восточного угла <span
+                        th:text="${#strings.replace(str.aSELat, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>е.	Геодезическая долгота юго-восточного угла <span
+                        th:text="${#strings.replace(str.aSELong, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>ж.	Геодезическая широта юго-западного угла <span
+                        th:text="${#strings.replace(str.aSWLat, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>з.	Геодезическая долгота юго-западного угла <span
+                        th:text="${#strings.replace(str.aSWLong, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>и.	Геодезическая широта центральной точки <span
+                        th:text="${#strings.replace(str.aMidLat, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>к.	Геодезическая долгота центральной точки <span
+                        th:text="${#strings.replace(str.aMidLong, '&quot;', '')}"></span>, град.мин.сек</p>
+            </span>
+        </span>
+    <span th:if="${#strings.equals(typeV, 'Канопус-В')}">
+            <span th:if="${deltaTime == ''}">
+                <p>6.	Продолжительность съемки – <span th:text="0"></span> с</p>
+            </span>
+            <span th:if="${deltaTime != ''}">
+                <p>6.	Продолжительность съемки – <span th:text="${deltaTime}"></span> с</p>
+            </span>
+            <span th:if="${#arrays.length(channelRange) == 1}">
+                <p>7.   Границы длин волн спектральных диапазонов
+                <span th:each="str : ${channelRange}">
+                     – <span th:text="${#strings.replace(str.data, '&quot;', '')}"></span>, нм
+                </span></p>
+            </span>
+            <span th:unless="${#arrays.length(channelRange) == 1}">
+                <p>7.   Границы длин волн спектральных диапазонов:</p>
+                <span th:each="str : ${channelRange}">
+                    <p><span th:unless="${#strings.isEmpty(#strings.replace(str.label, '&quot;', ''))}">
+                        – <span th:text="${#strings.replace(str.label, '&quot;', '')}"></span>
+                    </span>
+                     – <span th:text="${#strings.replace(str.data, '&quot;', '')}"></span>, нм</p>
+                </span>
+            </span>
+            <p>8.	Формат файла изображения – <span th:text="${format}"></span></p>
+            <p>9.	Фокусное расстояние  – <span th:text="${focalLength}"></span>, мм</p>
+            <span th:if="${#arrays.length(accumulationLines) == 1}">
+                <p>10.   Количество шагов ВЗН
+                <span th:each="str : ${accumulationLines}">
+                     – <span th:text="${#strings.replace(str.data, '&quot;', '')}"></span>
+                </span></p>
+            </span>
+            <span th:unless="${#arrays.length(accumulationLines) == 1}">
+                <p>10.   Количество шагов ВЗН:</p>
+                <span th:each="str : ${accumulationLines}">
+                    <p><span th:unless="${#strings.isEmpty(#strings.replace(str.label, '&quot;', ''))}">
+                        – <span th:text="${#strings.replace(str.label, '&quot;', '')}"></span>
+                    </span>
+                     – <span th:text="${#strings.replace(str.data, '&quot;', '')}"></span></p>
+                </span>
+            </span>
+            <span th:if="${sideSize == ''}">
+                <p>11.	Размер стороны проекции пиксела на земной поверхности с точностью
+            не хуже 0,1 м  – <span th:text="0"></span>, м</p>
+            </span>
+            <span th:if="${sideSize != ''}">
+                <p>11.	Размер стороны проекции пиксела на земной поверхности с точностью
+            не хуже 0,1 м  – <span th:text="${sideSize}"></span>, м</p>
+            </span>
+            <span th:if="${angleOptSys == ''}">
+                <p>12.	Угол между местной вертикалью и осью визирования оптической системы  – <span
+                        th:text="0"></span>, град</p>
+            </span>
+            <span th:if="${angleOptSys != ''}">
+                <p>12.	Угол между местной вертикалью и осью визирования оптической системы  – <span
+                        th:text="${angleOptSys}"></span>, град</p>
+            </span>
+            <p>13.	Отклонение КА по углам:</p>
+            <p> – крен –  <span th:text="${alpha}"></span>,  град</p>
+            <p> – тангаж –  <span th:text="${omega}"></span>,  град</p>
+            <p> – рыскание –  <span th:text="${kappa}"></span>, град</p>
+            <p>14.	Высота Солнца в ходе съемки – <span th:text="${sunHeightDuring}"></span>, град</p>
+            <p>15.	Высота орбиты КА – <span th:text="${orbitAltitude}"></span>, км</p>
+            <p>16.	Наклонная дальность до центральной точки съемки – <span th:text="${slantRange}"></span>, км</p>
+            <p>17.	Система координат: <span th:text="${coordinateSystem}"></span></p>
+            <p>18.	Координаты углов снимка в системе координат WGS - 84:</p>
+            <span th:each="str : ${channelAngle}">
+                <span th:unless="${#strings.isEmpty(#strings.replace(str.name, '&quot;', ''))}">
+                    <p>- <span th:text="${#strings.replace(str.name, '&quot;', '')}"></span>:</p>
+                </span>
+                <p>а.	Геодезическая широта северо-западного угла <span
+                        th:text="${#strings.replace(str.aNWLat, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>б.	Геодезическая долгота северо-западного угла <span
+                        th:text="${#strings.replace(str.aNWLong, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>в.	Геодезическая широта северо-восточного угла <span
+                        th:text="${#strings.replace(str.aNELat, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>г.	Геодезическая долгота северо-восточного угла <span
+                        th:text="${#strings.replace(str.aNELong, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>д.	Геодезическая широта юго-восточного угла <span
+                        th:text="${#strings.replace(str.aSELat, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>е.	Геодезическая долгота юго-восточного угла <span
+                        th:text="${#strings.replace(str.aSELong, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>ж.	Геодезическая широта юго-западного угла <span
+                        th:text="${#strings.replace(str.aSWLat, '&quot;', '')}"></span>, град.мин.сек</p>
+                <p>з.	Геодезическая долгота юго-западного угла <span
+                        th:text="${#strings.replace(str.aSWLong, '&quot;', '')}"></span>, град.мин.сек</p>
+            </span>
+        </span>
+</div>
+<div class="data">
+    <p>Оператор <span th:text="${operator}"></span></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Авторизация</title>
+    <link rel='stylesheet' href='webjars/bootstrap/css/bootstrap.min.css'/>
+    <link rel="stylesheet" href="signin.css"/>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+</head>
+
+<body class="text-center">
+<form th:action="@{/login}" method="post" class="form-signin">
+    <h1 class="h3 mb-3 font-weight-normal">Пожалуйста авторизуйтесь</h1>
+    <p th:if="${param.error}" class="error"> Неправильное имя или пароль! </p>
+    <label for="inputLogin" class="sr-only">Имя пользователя</label>
+    <input name="usernameOrEmail" type="text" id="inputLogin" class="form-control" placeholder="Имя" required autofocus>
+    <label for="inputPassword" class="sr-only">Пароль</label>
+    <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Пароль" required>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" id="submitButton" onclick="myFunction()">Войти
+    </button>
+</form>
+</body>
+<script>
+    window.$ = window.jQuery = require("jquery");
+    $(function () {
+        var login = localStorage.getItem("inputLogin");
+        var password = localStorage.getItem("inputPassword");
+        if (login)
+            document.getElementById('inputLogin').value = login;
+        if (password)
+            document.getElementById('inputPassword').value = password;
+    })
+
+    function myFunction() {
+        localStorage.setItem('inputLogin', document.getElementById('inputLogin').value);
+        localStorage.setItem('inputPassword', document.getElementById('inputPassword').value);
+    }
+</script>
+</html>

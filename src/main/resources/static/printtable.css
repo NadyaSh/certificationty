@@ -1,0 +1,40 @@
+* {
+    margin: 0px;
+}
+
+body {
+    font-family: Times, 'Times New Roman', serif;
+    font-size: 14px;
+    height: 100vh;
+}
+
+h1, h2, p {
+    color: #000;
+}
+
+#backgroundlayer, #addUser, #path, #title, #treeList, #disks, #addressbar, #files {
+    display: none;
+}
+
+#title3 {
+    display: block;
+}
+
+.login, .list-cont, .user-text, .logout, .buttons-cont, .dx-popup-content {
+    display: none;
+}
+
+.header {
+    grid-area: header;
+    justify-self: center;
+    align-self: end;
+}
+
+.grid-container {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 25px auto;
+    grid-template-areas: "header" "content";
+    grid-gap: 10px;
+}
